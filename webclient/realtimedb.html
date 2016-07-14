@@ -35,6 +35,9 @@
   // Get a reference to the database service
   var database = firebase.database();
 
+
+
+
   function writeUserData(userId, name, email) {
   	firebase.database().ref('users/' + userId).set( {
   		username: name,
@@ -42,7 +45,8 @@
   	});
   }
 
-  writeUserData("testuser", "testname", "test@test.com");
+  writeUserData("testuserId", "testname", "test@test.com");
+
 
 
   function writeNewPost(uid, username, title, body) {
@@ -68,6 +72,8 @@
 
   writeNewPost("testuid", "testusername", "testtitle", "testbody");
 
+
+
   function listenToChangeInData(postId) {
   	firebase.database().ref('posts/' + postId + '/starCount')
   		.on('value', function(snapshot) {
@@ -79,6 +85,20 @@
 
   // hardcoded a post key.  have to change this.
   listenToChangeInData("-KMbA9E8A0UN_kMtHn4K");
+
+
+
+
+  function readDataOnce(userId) {
+  	//var userId = firebase.auth().currentUser.uid;
+	firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+	  		var username = snapshot.val().username;
+	  		console.log("username=" + username);
+	});
+  }
+
+  readDataOnce("testuserId");
+
 </script>
 
 </html>
