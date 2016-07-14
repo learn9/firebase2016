@@ -67,6 +67,18 @@
   }
 
   writeNewPost("testuid", "testusername", "testtitle", "testbody");
+
+  function listenToChangeInData(postId) {
+  	firebase.database().ref('posts/' + postId + '/starCount')
+  		.on('value', function(snapshot) {
+  			console.log("starcount = " + snapshot.val());
+		  	//updateStarCount(postElement, snapshot.val());
+		}
+	);
+  }
+
+  // hardcoded a post key.  have to change this.
+  listenToChangeInData("-KMbA9E8A0UN_kMtHn4K");
 </script>
 
 </html>
